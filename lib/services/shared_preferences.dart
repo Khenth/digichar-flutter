@@ -9,7 +9,7 @@ class Preferences {
   }
 
   static String get getToken {
-    return Preferences.prefs.getString('token') ?? _token;
+    return Preferences.prefs.getString('refreshToken') ?? _token;
   }
 
 }

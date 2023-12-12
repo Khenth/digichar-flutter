@@ -19,6 +19,7 @@ int currentPageIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
    LesCharitiesView(),
    MngsCharitiesView(),
+   ProfileView()
   ];
 
   void _onItemTapped(int index) {
@@ -26,7 +27,7 @@ int currentPageIndex = 0;
                     Provider.of<AuthService>(context, listen: false);
 
     switch (index) {
-      case 2:
+      case 3:
       authServices.logout();
       Navigator.of(context).pushReplacementNamed('login');
         break;
@@ -42,7 +43,7 @@ int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     final themeMode = Provider.of<ThemeChanger>(context);
-
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(actions: [
         IconButton(
@@ -58,6 +59,8 @@ int currentPageIndex = 0;
         showUnselectedLabels: false,
         currentIndex: currentPageIndex,
         onTap: _onItemTapped,
+        fixedColor: colors.primary,
+        unselectedItemColor: colors.onBackground.withOpacity(0.5),
         items: const[
         BottomNavigationBarItem(
           icon: Icon(Icons.reduce_capacity_rounded),
@@ -66,6 +69,10 @@ int currentPageIndex = 0;
         BottomNavigationBarItem(
           icon: Icon(Icons.menu_sharp),
           label: 'Mes charities',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_pin_outlined),
+          label: 'Profile',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.exit_to_app),

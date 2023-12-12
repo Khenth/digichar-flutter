@@ -38,11 +38,12 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,  
-      initialRoute: 'login',
+      initialRoute: 'splash',
        scaffoldMessengerKey: NotificationsServices.messegerkey,
       theme: AppThemes.appThemeData[
           themeMode.darkTheme ? AppTheme.darkTheme : AppTheme.lightTheme],
       routes: {
+        'splash': (_) => const SplashScreen(),
         'login': (_) => const LoginScreen(),
         'register': (_) => const RegisterScreen(),
         'forgot': (_) => const ForgotPasswordScreen(),

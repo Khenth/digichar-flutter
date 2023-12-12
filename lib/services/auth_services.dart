@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:digichar/services/services.dart';
 import 'package:flutter/material.dart';
 
@@ -50,9 +52,22 @@ class AuthService extends ChangeNotifier {
     return;
   }
 
-  // Future<String> refreshToken() async {
+  Future<String> refreshToken() async {
+    final token =  Preferences.getToken;
+    final data = {
+       "refreshToken": token
+    };
+    try {
+      final json = await ServerApi.httpPost('/refresh-token', data);
+      final authResp = AuthResponse.fromJson(json);
+      user = authResp.user;
+      await Preferences.prefs.setString('refreshToken', authResp.refreshtoken);
+      return '';
+    } catch (e) {
+      final error = MessageResponse.fromJson(e as Map<String, dynamic>);
+      NotificationsServices.showSnapbarError(error.msg);
+      return error.msg;
+    }
 
-  //   // return await storage.read(key: 'token') ?? '';
-
-  // }
+  }
 }
