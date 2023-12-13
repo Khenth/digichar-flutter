@@ -5,16 +5,17 @@ import 'package:http/http.dart';
 import '../config/config.dart';
 
 class ServerApi {
-  static Future<Map<String, dynamic>> httpGet(String path) async {
-    final url = Uri.https(Environments.apiUrl, path);
+  static Future<dynamic> httpGet(String path) async {
+    final url = Uri.parse('${Environments.apiUrl}$path');
     Response res = await get(url);
 
-    final Map<String, dynamic> body = json.decode(res.body);
+    final  body = json.decode(res.body);
 
     if (res.statusCode == 200) {
       return body;
     } else {
       log("Error on get");
+      body as Map<String, dynamic>;
       if (body.containsKey('msg')) {
       throw body;
       } else {
